@@ -32,17 +32,20 @@ class BachhoaxanhSpider(scrapy.Spider):
             p_price = product.css("div.product_price::text").get()
             p_per = str(product.css("div.product_price div::text").get())[1:]
             p_url = product.css("a::attr(href)").get()
+            p_img = product.css("img::attr(src)").get()
             print("Product: ", {
                 "name": p_name.strip() if p_name else "N/A",
                 "price": p_price.strip() if p_price else "N/A",
                 "per": p_per.strip() if p_per else "N/A",
-                "url": response.urljoin(p_url) if p_url else "N/A"
+                "url": response.urljoin(p_url) if p_url else "N/A",
+                "img": response.urljoin(p_img) if p_img else "N/A"
             })
             yield {
                 "name": p_name.strip() if p_name else "N/A",
                 "price": p_price.strip() if p_price else "N/A",
                 "per": p_per.strip() if p_per else "N/A",
-                "url": response.urljoin(p_url) if p_url else "N/A"
+                "url": response.urljoin(p_url) if p_url else "N/A",
+                "img": response.urljoin(p_img) if p_img else "N/A"
             }
         # if next_page:
         #     yield scrapy.Request(url=next_page, callback=self.parse)
